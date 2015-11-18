@@ -1,0 +1,11 @@
+<%= display_current_user %>
+<%= display_logout %>
+<h1>My area</h1>
+	<p>
+		<%= "#{@user.email}" %>
+		<%= "#{@user.username}" %>
+		<img src="<%= "#{@user.avatar}" %>" >
+		<%= link_to "My products", user_products_path(@user) %>
+		<%= link_to "Delete", users_path(@user), method: :delete, data: {confirm: "Are you sure?"} %>
+	</p>
+

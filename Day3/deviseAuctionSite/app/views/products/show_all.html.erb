@@ -1,0 +1,12 @@
+<%= display_current_user %>
+<%= display_logout %>
+<%#= link_to "Login", new_user_session_path %>
+<%#= link_to "Register", new_user_registration_path %>
+
+<h2>Products available for bidding right now !</h2>
+<% @products.each do |product| %>
+	<li> 
+		<%= "#{product.title}, #{product.description}, Min bid: #{product.minimum_bid}" %> 
+		<img class="product-image" src="<%= product.picture %>">
+	</li>
+<% end %>

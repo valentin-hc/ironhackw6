@@ -1,0 +1,14 @@
+<%= display_current_user %>
+<%= display_logout %>
+
+
+<h2>List of products</h2>
+<%= @user.email %>
+<%= link_to "Add a new product", new_user_product_path(@user) %>
+<%#= flash_message %>
+<% @products.each do |product| %>
+	<li> 
+		<%= "#{product.title}, #{product.description}" %> 
+		<%= link_to "Delete", user_product_path(@user, product), method: :delete, data: {confirm: "Are you sure?"} %>
+	</li>
+<% end %>

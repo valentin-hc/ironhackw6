@@ -1,0 +1,23 @@
+<%= display_current_user %>
+<%= display_logout %>
+
+<h2><%= @product.title %></h2>
+<p><%= @product.description %></p>
+<p>
+	Bidding Deadline : 
+	<%= "#{@product.date.strftime("%b %d, %Y")} at #{@product.time.strftime("%I:%M:%S %p")}" %>
+</p>
+<p>
+	Minimum Bid: <%= @product.minimum_bid %> 
+</p>
+<%#= flash_message %>
+
+<%= form_for [@product, @bid] do |f| %> 
+	<div>
+		<%= f.label :amount %>
+		<%= f.text_field :amount, placeholder: "1000000" %>
+	</div>
+	<div>
+		<%= f.submit "Add new bid" %>
+	</div>
+<% end %>

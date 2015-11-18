@@ -1,0 +1,32 @@
+<%= display_current_user %>
+<%= display_logout %>
+
+<h2>Add a new product to your basket</h2>
+<%#= flash_message %>
+<%= form_for [@user, @product] do |f| %> 
+	<div>
+		<%= f.label :title %>
+		<%= f.text_field :title, placeholder: "Product title" %>
+	</div>
+	<div>
+		<%= f.label :description %>
+		<%= f.text_area :description, placeholder: "Product description" %>
+	</div>
+	<div>
+		<%= f.label :minimum_bid %>
+		<%= f.number_field :minimum_bid, placeholder: "1000" %>
+	</div>
+	<div>
+		<%= f.label :picture %>
+		<%= f.file_field :picture %>
+	</div>
+
+	<div>
+		<%= f.label "Deadline" %>
+		<%= f.date_field :date %>
+		<%= f.time_field :time %>
+	</div>
+	<div>
+		<%= f.submit "Add product" %>
+	</div>
+<% end %>
