@@ -1,0 +1,23 @@
+<h1>BBQ</h1>
+
+<div data-hook="bbq-info" data-bbq="<%= params[:id] %>"></div>
+
+<div id="add-item">
+	<h4>Add an item for that BBQ </h4>
+	<%= form_for @item, url: barbecue_items_path(params[:id]) do |f| %> 
+		<div>
+			<%= f.label :name %>
+			<%= f.text_field :name %>
+		</div>
+		<div>
+			<%= f.label :quantity %>
+			<%= f.number_field :quantity%>
+		</div>
+		<div>
+			<%= f.submit "Create" %>
+		</div>
+	<% end %>
+</div>
+
+
+<a href="<%= barbecues_path %>">Back to list of BBQs</a>

@@ -11,39 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118193502) do
+ActiveRecord::Schema.define(version: 20151120140729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bids", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "product_id"
-    t.integer  "amount",      null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "minimum_bid"
+  create_table "barbecues", force: :cascade do |t|
+    t.datetime "date"
+    t.string   "title"
+    t.string   "venue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "bids", ["product_id"], name: "index_bids_on_product_id", using: :btree
-  add_index "bids", ["user_id"], name: "index_bids_on_user_id", using: :btree
-
-  create_table "products", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "title",                null: false
-    t.string   "description"
-    t.datetime "date",                 null: false
-    t.datetime "time",                 null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "minimum_bid"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
+  create_table "barbecues_users", id: false, force: :cascade do |t|
+    t.integer "user_id",     null: false
+    t.integer "barbecue_id", null: false
   end
 
-  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
+  add_index "barbecues_users", ["barbecue_id", "user_id"], name: "index_barbecues_users_on_barbecue_id_and_user_id", using: :btree
+  add_index "barbecues_users", ["user_id", "barbecue_id"], name: "index_barbecues_users_on_user_id_and_barbecue_id", using: :btree
+
+  create_table "items", force: :cascade do |t|
+    t.integer  "barbecue_id"
+    t.string   "name"
+    t.integer  "quantity"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "items", ["barbecue_id"], name: "index_items_on_barbecue_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -54,15 +51,11 @@ ActiveRecord::Schema.define(version: 20151118193502) do
     t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "username"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

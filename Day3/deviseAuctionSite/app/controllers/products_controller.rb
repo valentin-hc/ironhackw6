@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+	skip_before_filter :authenticate_user!, :only => :show_all
 	def index
 		@user = current_user
 		@products = @user.products.all
